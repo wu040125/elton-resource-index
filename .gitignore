@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Node / frontend
+site/node_modules/
+site/dist/
+
+# Captured/private artifacts
+netlog*.json
+output*.pdf
+output*.txt
+output*.tsv
+decode_key*.txt
+data/links.full.*
+data/links.review.*
+data_preview/
+
+# Local/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*

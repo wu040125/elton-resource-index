@@ -1,0 +1,68 @@
+{
+  "generatedFrom": "output.links.txt",
+  "publicCount": 1125,
+  "totalCleanCount": 1125,
+  "fullCount": 1142,
+  "paidPreviewCount": 915,
+  "reviewCount": 87,
+  "categories": {
+    "未分类": 363,
+    "软件工具": 326,
+    "AI工具": 109,
+    "设计素材": 84,
+    "影音娱乐": 66,
+    "搜索源": 66,
+    "网盘资源": 43,
+    "学习资料": 35,
+    "文档知识库": 20,
+    "教程文章": 13
+  },
+  "publicCategories": {
+    "未分类": 363,
+    "软件工具": 326,
+    "AI工具": 109,
+    "设计素材": 84,
+    "影音娱乐": 66,
+    "搜索源": 66,
+    "网盘资源": 43,
+    "学习资料": 35,
+    "文档知识库": 20,
+    "教程文章": 13
+  },
+  "status": {
+    "timeout": 624,
+    "ok": 447,
+    "error": 30,
+    "missing": 13,
+    "restricted": 11
+  },
+  "topDomains": {
+    "pan.quark.cn": 35,
+    "github.com": 19,
+    "bgithub.xyz": 8,
+    "kdocs.cn": 7,
+    "flowus.cn": 4,
+    "link3.cc": 4,
+    "cy.urongda.com": 3,
+    "dyjqd.com": 3,
+    "font.icu": 3,
+    "gaoding.com": 3,
+    "jamcz.com": 3,
+    "mixkit.co": 3,
+    "readzn.com": 3,
+    "sshpilot.app": 3,
+    "webact.185.hk": 3,
+    "yuque.com": 3,
+    "123.kkit.app": 2,
+    "14ku.date": 2,
+    "aigcpanel.com": 2,
+    "aiwind.org": 2
+  },
+  "mode": "full_static_public",
+  "contactSlots": {
+    "wechatQr": "",
+    "wechatGroupImage": "",
+    "telegram": "",
+    "email": ""
+  }
+}
