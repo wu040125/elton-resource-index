@@ -29,6 +29,7 @@ type ResourceLink = {
 type SiteStats = {
   publicCount: number;
   totalCleanCount: number;
+  duplicateRemovedCount?: number;
   paidPreviewCount: number;
   reviewCount: number;
   categories: Record<string, number>;
@@ -97,7 +98,7 @@ export function App() {
         </div>
         <div className="top-actions">
           <a className="ghost-button" href="#contact">
-            完整版入口
+            频道入口
           </a>
         </div>
       </section>
@@ -138,15 +139,21 @@ export function App() {
           <details id="contact" className="contact-panel">
             <summary className="section-title">
               <MessageCircle size={16} />
-              完整版与社群
+              频道与社群
             </summary>
             <p>
-              当前页面展示公开精选资源。完整版保留网盘、站内资源、超时待复核项和更多未公开链接，可接入微信二维码、群聊图片或 TG 入口。
+              当前页面展示已去重的公开资源。后续更新、补充说明和资源调整会优先同步到 Telegram 频道。
             </p>
             <div className="contact-slots">
               <span>微信二维码：待配置</span>
               <span>群聊图片：待配置</span>
-              <span>TG 群：待配置</span>
+              {stats.contactSlots.telegram ? (
+                <a href={stats.contactSlots.telegram} target="_blank" rel="noreferrer">
+                  Telegram 频道：t.me/Elton_Tech
+                </a>
+              ) : (
+                <span>Telegram 频道：待配置</span>
+              )}
             </div>
           </details>
         </aside>
@@ -156,7 +163,7 @@ export function App() {
             <div>
               <h2>{category === '全部' ? '全部公开资源' : category}</h2>
               <p>
-                当前显示 {filtered.length} 条；分类数字只统计公开版数据。未分类资源保留为独立模块，后续可人工整理。
+                当前显示 {filtered.length} 条；已按 URL 去重。未分类资源保留为独立模块，后续可人工整理。
               </p>
             </div>
           </div>

@@ -256,13 +256,19 @@ h1 {
   margin-top: 12px;
 }
 
-.contact-slots span {
+.contact-slots span,
+.contact-slots a {
   background: #f6f8f3;
   border: 1px dashed #cbd6c3;
   border-radius: 7px;
   color: #50605b;
   font-size: 13px;
   padding: 9px;
+}
+
+.contact-slots a {
+  color: #145f46;
+  font-weight: 700;
 }
 
 .content {

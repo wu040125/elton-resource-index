@@ -342,7 +342,10 @@ def process(input_path: Path, output_dir: Path, validate: bool) -> None:
                     if done % 100 == 0:
                         print(f"validated {done}/{len(missing_urls)} in {time.time() - started:.1f}s")
     else:
-        validation = {url: ("unknown", None, None, []) for url in urls}
+        validation = {
+            url: validation.get(url, ("unknown", None, None, []))
+            for url in urls
+        }
 
     duplicate_counts: dict[str, int] = {}
     records: list[LinkRecord] = []
@@ -411,7 +414,19 @@ def write_site_data(records: list[LinkRecord], site_data_dir: Path, summary: dic
             return False
         return True
 
-    site_records = [record for record in records if visible(record)]
+    def site_rank(record: LinkRecord) -> tuple[int, int, int, int, str]:
+        status_rank = {"ok": 4, "restricted": 3, "timeout": 2, "unknown": 1}.get(record.status, 0)
+        title_rank = min(len(record.title), 80)
+        return (record.score, status_rank, title_rank, -record.page, record.title)
+
+    visible_records = [record for record in records if visible(record)]
+    best_by_url: dict[str, LinkRecord] = {}
+    for record in visible_records:
+        existing = best_by_url.get(record.normalized_url)
+        if existing is None or site_rank(record) > site_rank(existing):
+            best_by_url[record.normalized_url] = record
+
+    site_records = list(best_by_url.values())
     site_records.sort(key=lambda record: (record.category, -record.score, record.page, record.title))
 
     public_links = [
@@ -430,11 +445,7 @@ def write_site_data(records: list[LinkRecord], site_data_dir: Path, summary: dic
         for record in site_records
     ]
 
-    clean_records = [
-        record
-        for record in records
-        if not any(note in excluded_note_markers for note in record.notes)
-    ]
+    clean_records = site_records
     categories = count_by(clean_records, "category")
     public_categories = count_by(site_records, "category")
     site_stats = {
@@ -442,6 +453,7 @@ def write_site_data(records: list[LinkRecord], site_data_dir: Path, summary: dic
         "publicCount": len(public_links),
         "totalCleanCount": len(clean_records),
         "fullCount": len(records),
+        "duplicateRemovedCount": len(visible_records) - len(site_records),
         "paidPreviewCount": len([record for record in clean_records if record.tier == "paid"]),
         "reviewCount": len([record for record in clean_records if record.tier == "review" or record.score < 55]),
         "categories": categories,
@@ -452,7 +464,7 @@ def write_site_data(records: list[LinkRecord], site_data_dir: Path, summary: dic
         "contactSlots": {
             "wechatQr": "",
             "wechatGroupImage": "",
-            "telegram": "",
+            "telegram": "https://t.me/Elton_Tech",
             "email": "",
         },
     }
@@ -474,8 +486,11 @@ def load_validation_cache(output_dir: Path) -> dict[str, tuple[str, int | None, 
         url = record.get("normalized_url")
         if not url:
             continue
+        status = record.get("status") or "unknown"
+        if status == "unknown":
+            continue
         cache[url] = (
-            record.get("status") or "unknown",
+            status,
             record.get("http_status"),
             record.get("final_url"),
             [

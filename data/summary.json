@@ -2,9 +2,9 @@
   "input": "output.links.txt",
   "total_rows": 1142,
   "unique_urls": 1079,
-  "free_rows": 185,
-  "paid_rows": 926,
-  "review_rows": 93,
+  "free_rows": 500,
+  "paid_rows": 603,
+  "review_rows": 80,
   "by_category": {
     "未分类": 366,
     "软件工具": 326,
@@ -18,16 +18,16 @@
     "教程文章": 14
   },
   "by_status": {
-    "timeout": 624,
-    "ok": 464,
-    "error": 30,
-    "missing": 13,
-    "restricted": 11
+    "ok": 1005,
+    "error": 50,
+    "restricted": 39,
+    "timeout": 29,
+    "missing": 19
   },
   "by_tier": {
-    "paid": 926,
-    "free": 185,
-    "review": 31
+    "paid": 603,
+    "free": 500,
+    "review": 39
   },
   "top_domains": {
     "pan.quark.cn": 35,
